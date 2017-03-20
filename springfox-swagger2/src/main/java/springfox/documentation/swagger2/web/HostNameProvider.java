@@ -68,7 +68,9 @@ public class HostNameProvider {
 
     String port = request.getHeader("X-Forwarded-Port");
 
-    if (hasText(port)) {
+    if (hasText(port) && port.contains(",")) {
+      builder.port(Integer.parseInt(port.split(",")[0]));
+    } else if(hasText(port)){
       builder.port(Integer.parseInt(port));
     }
 
